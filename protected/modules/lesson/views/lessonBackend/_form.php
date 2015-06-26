@@ -88,6 +88,12 @@
 </div>
 
 <div class="row">
+    <div class="col-sm-3">
+        <?= $form->textFieldGroup($model, 'hall'); ?>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-sm-12 <?= $model->hasErrors('description') ? 'has-error' : ''; ?>">
         <?= $form->labelEx($model, 'description'); ?>
         <?php $this->widget(

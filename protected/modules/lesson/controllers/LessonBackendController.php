@@ -26,7 +26,7 @@ class LessonBackendController extends yupe\components\controllers\BackController
             'inline' => [
                 'class'           => 'yupe\components\actions\YInLineEditAction',
                 'model'           => 'Lesson',
-                'validAttributes' => ['name', 'type_id', 'category_id']
+                'validAttributes' => ['name', 'type_id', 'category_id', 'hall']
             ],
         ];
     }

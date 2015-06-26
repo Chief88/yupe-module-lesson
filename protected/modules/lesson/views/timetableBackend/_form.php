@@ -77,8 +77,6 @@
                                 'data' =>  Staff::model()->getListStaff(),
                                 'htmlOptions' => [
                                     'class' => 'timetable-staff form-control',
-                                    'empty'  => '--Выбрать--',
-                                    'encode' => false
                                 ],
                             ],
                         ]

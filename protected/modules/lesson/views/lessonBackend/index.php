@@ -105,6 +105,18 @@ $this->menu = [
             ),
         ],
         [
+            'class'    => 'bootstrap.widgets.TbEditableColumn',
+            'name'     => 'hall',
+            'editable' => [
+                'url'    => $this->createUrl($this->patchBackend .'inline'),
+                'mode'   => 'inline',
+                'params' => [
+                    Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
+                ]
+            ],
+            'filter'   => CHtml::activeTextField($model, 'hall', ['class' => 'form-control']),
+        ],
+        [
             'class' => 'bootstrap.widgets.TbButtonColumn',
             'template'    => '{update}{delete}',
         ],

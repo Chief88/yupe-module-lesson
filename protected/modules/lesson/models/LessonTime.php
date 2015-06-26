@@ -86,7 +86,7 @@ class LessonTime extends yupe\models\YModel{
     }
 
     public function getListTime(){
-        return CHtml::listData($this->model()->findAll(), 'id', 'time_begin');
+        return CHtml::listData($this->model()->findAll(['order' => 'sort']), 'id', 'time_begin');
     }
 
 }

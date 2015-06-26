@@ -118,18 +118,6 @@ class TimetableBackendController extends yupe\components\controllers\BackControl
                         ['create']
                     )
                 );
-            }else{
-                Yii::app()->user->setFlash(
-                    yupe\widgets\YFlashMessages::ERROR_MESSAGE,
-                    Yii::t($this->aliasModule, 'Error!')
-                );
-
-                $this->redirect(
-                    (array)Yii::app()->getRequest()->getPost(
-                        'submit-type',
-                        ['create']
-                    )
-                );
             }
         }
 

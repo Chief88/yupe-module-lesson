@@ -56,7 +56,7 @@ class TimetableLesson extends yupe\models\YModel{
     public function relations()
     {
         return [
-            'lesson'    => [self::BELONGS_TO, 'Lesson', 'lesson_id'],
+            'lesson'    => [self::BELONGS_TO, 'Lesson', 'lesson_id', 'with' => ['category', 'type']],
             'time'      => [self::BELONGS_TO, 'LessonTime', 'time_id'],
             'teacher'   => [self::BELONGS_TO, 'Staff', 'staff_id'],
             'date'      => [self::BELONGS_TO, 'Timetable', 'date_id'],

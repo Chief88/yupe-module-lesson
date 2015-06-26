@@ -31,7 +31,11 @@ class Timetable extends yupe\models\YModel{
     public function attributeLabels()
     {
         return [
-            'date'          => Yii::t($this->_aliasModule, 'Date'),
+            'date'              => Yii::t($this->_aliasModule, 'Date'),
+            'number_year'       => Yii::t($this->_aliasModule, 'Number year'),
+            'number_month'      => Yii::t($this->_aliasModule, 'Number month'),
+            'number_week'       => Yii::t($this->_aliasModule, 'Number week'),
+            'number_day_week'   => Yii::t($this->_aliasModule, 'Number day week'),
         ];
     }
 
@@ -41,10 +45,12 @@ class Timetable extends yupe\models\YModel{
     public function rules()
     {
         return [
-            ['date', 'required'],
+            ['date, number_year, number_month, number_week, number_day_week', 'required'],
             ['date', 'filter', 'filter' => 'trim'],
             ['date', 'length', 'max' => 250],
-            ['date', 'safe'],
+            ['date', 'unique'],
+            ['number_year, number_month, number_week, number_day_week', 'numerical', 'integerOnly' => true, 'on'=>'integer'],
+            ['date, number_year, number_month, number_week, number_day_week', 'safe'],
         ];
     }
 
@@ -56,6 +62,18 @@ class Timetable extends yupe\models\YModel{
         return [
             'timetableLesson'   => [self::HAS_MANY, 'TimetableLesson', 'date_id'],
         ];
+    }
+
+    public function beforeValidate(){
+        if(!empty($this->date)){
+            $timeForCurrentModel = strtotime($this->date);
+            $this->number_year = date('Y', $timeForCurrentModel);
+            $this->number_month = date('n', $timeForCurrentModel);
+            $this->number_week = date('W', $timeForCurrentModel);
+            $this->number_day_week = date('N', $timeForCurrentModel);
+        }
+
+        return parent::beforeValidate();
     }
 
     public function beforeDelete(){
@@ -81,6 +99,77 @@ class Timetable extends yupe\models\YModel{
 
     public function getListDate(){
         return CHtml::listData($this->model()->findAll(), 'id', 'date');
+    }
+
+    public function getListMonth(){
+        return [
+            1   => Yii::t($this->_aliasModule, 'January'),
+            2   => Yii::t($this->_aliasModule, 'February'),
+            3   => Yii::t($this->_aliasModule, 'March'),
+            4   => Yii::t($this->_aliasModule, 'April'),
+            5   => Yii::t($this->_aliasModule, 'May'),
+            6   => Yii::t($this->_aliasModule, 'June'),
+            7   => Yii::t($this->_aliasModule, 'July'),
+            8   => Yii::t($this->_aliasModule, 'Augustus'),
+            9   => Yii::t($this->_aliasModule, 'September'),
+            10  => Yii::t($this->_aliasModule, 'October'),
+            11  => Yii::t($this->_aliasModule, 'November'),
+            12  => Yii::t($this->_aliasModule, 'December'),
+        ];
+    }
+
+    public function getNameMonth($number = false){
+        $listMonth = $this->getListMonth();
+
+        if($number){
+            return isset($listMonth[$number]) ? $listMonth[$number] : '---';
+        }
+        return isset($listMonth[$this->number_month]) ? $listMonth[$this->number_month] : '---';
+    }
+
+    public function getListDaysWeek(){
+        return [
+            1   => [
+                'full'  => Yii::t($this->_aliasModule, 'Monday'),
+                'short' => Yii::t($this->_aliasModule, 'Md'),
+            ],
+            2   => [
+                'full'  => Yii::t($this->_aliasModule, 'Tuesday'),
+                'short' => Yii::t($this->_aliasModule, 'Td'),
+            ],
+            3   => [
+                'full'  => Yii::t($this->_aliasModule, 'Wednesday'),
+                'short' => Yii::t($this->_aliasModule, 'Wd'),
+            ],
+            4   => [
+                'full'  => Yii::t($this->_aliasModule, 'Thursday'),
+                'short' => Yii::t($this->_aliasModule, 'Trd'),
+            ],
+            5   => [
+                'full'  => Yii::t($this->_aliasModule, 'Friday'),
+                'short' => Yii::t($this->_aliasModule, 'Fd'),
+            ],
+            6   => [
+                'full'  => Yii::t($this->_aliasModule, 'Saturday'),
+                'short' => Yii::t($this->_aliasModule, 'St'),
+            ],
+            7   => [
+                'full'  => Yii::t($this->_aliasModule, 'Sunday'),
+                'short' => Yii::t($this->_aliasModule, 'Su'),
+            ],
+        ];
+    }
+
+    public function getNameDayWeek($number = false, $full = true){
+        $listDays = $this->getListDaysWeek();
+        if(!$number){
+            $number = $this->number_day_week;
+        }
+
+        if($full){
+            return isset($listDays[$number]) ? $listDays[$number]['full'] : '---';
+        }
+        return isset($listDays[$number]) ? $listDays[$number]['short'] : '---';
     }
 
 }

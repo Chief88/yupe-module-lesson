@@ -1,7 +1,6 @@
 <?php
 class GetLessonWidget extends yupe\widgets\YWidget{
 
-    public $nameContact;
     public $view = 'listLesson';
     public $categorySlug;
     public $typeSlug;
