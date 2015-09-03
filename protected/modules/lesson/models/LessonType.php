@@ -31,9 +31,10 @@ class LessonType extends yupe\models\YModel{
     public function attributeLabels()
     {
         return [
-            'name'  => Yii::t($this->_aliasModule, 'Name'),
-            'image' => Yii::t($this->_aliasModule, 'Image'),
-            'slug'  => Yii::t($this->_aliasModule, 'Alias'),
+            'name'          => Yii::t($this->_aliasModule, 'Name'),
+            'image'         => Yii::t($this->_aliasModule, 'Image'),
+            'slug'          => Yii::t($this->_aliasModule, 'Alias'),
+            'description'   => Yii::t($this->_aliasModule, 'Description'),
         ];
     }
 
@@ -44,10 +45,10 @@ class LessonType extends yupe\models\YModel{
     {
         return [
             ['name, slug', 'required'],
-            ['name, slug', 'filter', 'filter' => 'trim'],
+            ['description, name, slug', 'filter', 'filter' => 'trim'],
             ['slug', 'unique'],
             ['name, image, slug', 'length', 'max' => 250],
-            ['name, image, slug', 'safe'],
+            ['description, name, image, slug', 'safe'],
         ];
     }
 

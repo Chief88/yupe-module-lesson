@@ -33,7 +33,6 @@ class m000000_000000_lesson_base extends yupe\components\DbMigration{
                 'id'    => 'pk',
                 'name'  => 'varchar(250) NOT NULL',
                 'image' => 'varchar(250) DEFAULT NULL',
-                'slug'  => 'varchar(250) NOT NULL',
             ], $this->getOptions()
         );
 

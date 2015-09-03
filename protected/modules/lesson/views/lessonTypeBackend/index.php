@@ -75,7 +75,7 @@ $this->menu = [
         ],
         [
             'header' => Yii::t($this->aliasModule, 'Image'),
-            'value'  => 'CHtml::image($data->getImageUrl(100, 100))',
+            'value'  => 'CHtml::image($data->getImageUrl(0, 100))',
             'type'   => 'raw'
         ],
         [

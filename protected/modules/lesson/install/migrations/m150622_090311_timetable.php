@@ -13,12 +13,8 @@ class m150622_090311_timetable extends yupe\components\DbMigration{
         $this->createTable(
             '{{lesson_timetable}}',
             [
-                'id'                => 'pk',
-                'date'              => 'varchar(250) NOT NULL',
-                'number_year'       => 'int(11) NOT NULL',
-                'number_month'      => 'int(11) NOT NULL',
-                'number_week'       => 'int(11) NOT NULL',
-                'number_day_week'   => 'int(11) NOT NULL',
+                'id'            => 'pk',
+                'date'          => 'varchar(250) NOT NULL',
             ], $this->getOptions()
         );
 

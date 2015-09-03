@@ -11,7 +11,6 @@ $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
     <nav>
         <ul itemtype="https://data-vocabulary.org/Breadcrumb" itemscope="" class="breadcrumb">
             <li><a itemprop="url" href="/"><span itemprop="title">Главная</span></a>
-            <li><span itemprop="title">Клуб</span>
             <li><span itemprop="title">Расписание</span>
         </ul>
     </nav>
@@ -88,13 +87,16 @@ $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
                                 <td class="tabs-table__tab-content tabs-table__col_<?= $i; ?>">
 
                                     <?php foreach($models as $key => $model):{ ?>
+
                                         <?php if( ($model->lesson->category_id == $category->id) &&
                                             ($model->time_id == $timeId) &&
                                             ($model->date->date == $dayWeek['date']) ):{ ?>
 
                                             <div class="open-timetable-popup"
-                                                  data-popup-text="<?= $model->lesson->description?>">
-                                                <?= $model->lesson->hall?> <?= $model->lesson->name?> <?= $model->teacher->getFio()?>
+                                                 data-popup-text="<?= $model->lesson->description?>">
+                                                <strong><?= $model->lesson->name; ?></strong>
+                                                <ins><?= !empty($model->lesson->hall) ? '<br>' . $model->lesson->hall : ''?></ins>
+                                                <br><?= $model->teacher->getFio()?>
                                             </div>
 
                                             <?php $flag = false; unset($models[$key]); ?>
@@ -108,7 +110,7 @@ $mainAssets = Yii::app()->getTheme()->getAssetsUrl();
                                 </td>
 
 
-                        <?php }endforeach; ?>
+                        <?php }endforeach ?>
 
                     </tr>
 

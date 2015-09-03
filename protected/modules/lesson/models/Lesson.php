@@ -97,10 +97,11 @@ class Lesson extends yupe\models\YModel{
     public function relations()
     {
         return [
-            'category'  => [self::BELONGS_TO, 'Category', 'category_id'],
-            'type'      => [self::BELONGS_TO, 'LessonType', 'type_id'],
-            'time'      => [self::BELONGS_TO, 'LessonTime', 'time_id'],
-            'teacher'   => [self::BELONGS_TO, 'Staff', 'staff_id'],
+            'category'          => [self::BELONGS_TO, 'Category', 'category_id'],
+            'type'              => [self::BELONGS_TO, 'LessonType', 'type_id'],
+            'time'              => [self::BELONGS_TO, 'LessonTime', 'time_id'],
+            'teacher'           => [self::BELONGS_TO, 'Staff', 'staff_id'],
+            'timetableLesson'   => [self::HAS_MANY, 'TimetableLesson', 'lesson_id'],
         ];
     }
 

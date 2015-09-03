@@ -62,12 +62,13 @@ $this->menu = [
 </div>
 
 <?php $this->widget('yupe\widgets\CustomGridView', [
-    'hideBulkActions' => true,
-    'id'           => 'timetable-grid',
-    'dataProvider' => $model->search(),
-    'filter'       => $model,
-    'sortField'    => 'id',
-    'columns'      => [
+    'hideBulkActions'   => true,
+    'template'          => "<div style='position: relative; min-height: 60px;'>{pager}</div>{summary}{multiaction}\n{items}\n{extendedSummary}\n{pager}<div class='pull-right' style='margin: 26px 0;'>{headline}</div>",
+    'id'                => 'timetable-grid',
+    'dataProvider'      => $model->search(),
+    'filter'            => $model,
+    'sortField'         => 'id',
+    'columns'           => [
         [
             'name'        => 'id',
             'htmlOptions' => ['style' => 'width:20px'],

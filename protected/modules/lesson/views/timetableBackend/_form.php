@@ -1,3 +1,5 @@
+<?php Booster::getBooster()->registerPackage('select2'); ?>
+
 <? $form = $this->beginWidget(
     '\yupe\widgets\ActiveForm', [
         'id'                     => 'timetable-form',
@@ -27,8 +29,6 @@
     </div>
 </div>
 
-
-
 <div class="row form-group">
     <div class="col-sm-2">
         <?= Yii::t($aliasModule, "Add lesson"); ?>
@@ -48,7 +48,7 @@
                             'widgetOptions' => [
                                 'data' => LessonTime::model()->getListTime(),
                                 'htmlOptions' => [
-                                    'class' => 'timetable-time form-control',
+                                    'class' => 'timetable-time form-control select-2',
                                     'empty'  => '--Выбрать--',
                                     'encode' => false
                                 ],
@@ -62,7 +62,7 @@
                             'widgetOptions' => [
                                 'data' =>  Lesson::model()->getListLesson(),
                                 'htmlOptions' => [
-                                    'class' => 'timetable-lesson form-control',
+                                    'class' => 'timetable-lesson form-control select-2',
                                     'empty'  => '--Выбрать--',
                                     'encode' => false
                                 ],
@@ -76,7 +76,7 @@
                             'widgetOptions' => [
                                 'data' =>  Staff::model()->getListStaff(),
                                 'htmlOptions' => [
-                                    'class' => 'timetable-staff form-control',
+                                    'class' => 'timetable-staff form-control select-2',
                                 ],
                             ],
                         ]
@@ -113,7 +113,7 @@
                             'widgetOptions' => [
                                 'data' => LessonTime::model()->getListTime(),
                                 'htmlOptions' => [
-                                    'class' => 'timetable-time form-control',
+                                    'class' => 'timetable-time form-control select-2',
                                     'name' => 'Timetable[lessons]['. $i .'][time_id]',
                                     'empty'  => '--Выбрать--',
                                     'encode' => false
@@ -128,7 +128,7 @@
                             'widgetOptions' => [
                                 'data' =>  Lesson::model()->getListLesson(),
                                 'htmlOptions' => [
-                                    'class' => 'timetable-lesson form-control',
+                                    'class' => 'timetable-lesson form-control select-2',
                                     'name' => 'Timetable[lessons]['. $i .'][lesson_id]',
                                     'empty'  => '--Выбрать--',
                                     'encode' => false
@@ -143,7 +143,7 @@
                             'widgetOptions' => [
                                 'data' =>  Staff::model()->getListStaff(),
                                 'htmlOptions' => [
-                                    'class' => 'timetable-staff form-control',
+                                    'class' => 'timetable-staff form-control select-2',
                                     'name' => 'Timetable[lessons]['. $i .'][staff_id]',
                                     'empty'  => '--Выбрать--',
                                     'encode' => false
@@ -156,7 +156,7 @@
                     <a data-id="<?= $lesson->id; ?>" href="<?= Yii::app()->createUrl(
                         '/lesson/timetableBackend/deleteLesson',
                         ['id' => $lesson->id]
-                    ); ?>" class="pull-right timetable-delete-lesson"><i class="fa fa-fw fa-times"></i></a>
+                    ); ?>" class="pull-right timetable-delete-lesson btn btn-default"><i class="fa fa-fw fa-trash-o"></i></a>
                 </div>
             </div>
 
@@ -190,16 +190,31 @@
 <script type="text/javascript">
     $(function () {
 
+        $('.product-image select.select-2').select2('destroy').select2();
+
         var iLesson = $('#last-iterator').data('last-iterator');
         $('#button-add-lesson').click(function () {
+            addLesson();
+            return false;
+        });
+
+        $(document).keydown(function(event) {
+            console.log(event.keyCode);
+            if ( (event.keyCode == 107) || (event.keyCode == 187) ) {
+                addLesson();
+            }
+        });
+
+        function addLesson(){
             iLesson++;
-            var newImage = $("#timetable-lesson .lesson-template").clone().removeClass('lesson-template').removeClass('hidden');
+            var newImage = $("#timetable-lesson .lesson-template").clone().removeClass('lesson-template').removeClass('hidden').addClass('new-lesson');
             newImage.appendTo("#timetable-lesson");
             newImage.find(".timetable-time").attr('name', 'Timetable[lessons]['+ iLesson +'][time_id]');
             newImage.find(".timetable-lesson").attr('name', 'Timetable[lessons]['+ iLesson +'][lesson_id]');
             newImage.find(".timetable-staff").attr('name', 'Timetable[lessons]['+ iLesson +'][staff_id]');
-            return false;
-        });
+
+            $('.new-lesson select.select-2').select2('destroy').select2();
+        }
 
         $(this).closest('.product-image').remove();
 

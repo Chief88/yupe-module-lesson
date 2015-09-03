@@ -33,15 +33,15 @@ class LessonController extends yupe\components\controllers\FrontController{
         if($teacher){
             $teacher = trim($teacher);
             $words = explode(' ', $teacher);
-            $criteria->addCondition('teacher.last_name = :words1 AND teacher.first_name = :words2 AND teacher.patronymic = :words3');
-            $criteria->addCondition('teacher.last_name = :words1 AND teacher.first_name = :words3 AND teacher.patronymic = :words2', 'OR');
-            $criteria->addCondition('teacher.last_name = :words2 AND teacher.first_name = :words1 AND teacher.patronymic = :words3', 'OR');
-            $criteria->addCondition('teacher.last_name = :words2 AND teacher.first_name = :words3 AND teacher.patronymic = :words1', 'OR');
-            $criteria->addCondition('teacher.last_name = :words3 AND teacher.first_name = :words2 AND teacher.patronymic = :words1', 'OR');
-            $criteria->addCondition('teacher.last_name = :words3 AND teacher.first_name = :words1 AND teacher.patronymic = :words2', 'OR');
+            $criteria->addCondition('teacher.last_name = :words1 AND teacher.first_name = :words2');
+//            $criteria->addCondition('teacher.last_name = :words1 AND teacher.first_name = :words3 AND teacher.patronymic = :words2', 'OR');
+            $criteria->addCondition('teacher.last_name = :words2 AND teacher.first_name = :words1', 'OR');
+//            $criteria->addCondition('teacher.last_name = :words2 AND teacher.first_name = :words3 AND teacher.patronymic = :words1', 'OR');
+//            $criteria->addCondition('teacher.last_name = :words3 AND teacher.first_name = :words2 AND teacher.patronymic = :words1', 'OR');
+//            $criteria->addCondition('teacher.last_name = :words3 AND teacher.first_name = :words1 AND teacher.patronymic = :words2', 'OR');
             $criteria->params['words1'] = $words[0];
             $criteria->params['words2'] = $words[1];
-            $criteria->params['words3'] = $words[2];
+//            $criteria->params['words3'] = $words[2];
             $isFilter = true;
         }
 
@@ -73,7 +73,7 @@ class LessonController extends yupe\components\controllers\FrontController{
 
         $categoryModel = '';
         if (\Yii::app()->hasModule('category')) {
-            $categoryModel = \Category::model()->findByAttributes(['slug' => 'stranica-kontakty']);
+            $categoryModel = \Category::model()->findByAttributes(['slug' => 'stranica-raspisanie']);
         }
 
         $listDaysWeek = $this->_getListDaysWeek();
@@ -138,7 +138,8 @@ class LessonController extends yupe\components\controllers\FrontController{
                 }
             }
 
-            $days[$i]['date'] = $numberMonth < 10 ? $date .'.'. '0'.$numberMonth .'.'. $numberYear : $date .'.'. $numberMonth .'.'. $numberYear;
+            $numberDate = $date < 10 ? '0'. $date: $date;
+            $days[$i]['date'] = $numberMonth < 10 ? $numberDate  .'.'. '0'.$numberMonth .'.'. $numberYear : $date .'.'. $numberMonth .'.'. $numberYear;
             $days[$i]['full']['dayWeek'] = Timetable::model()->getNameDayWeek($i);
             $days[$i]['full']['dayAndMonth'] = $date .' '. Timetable::model()->getNameMonth($numberMonth);
             $days[$i]['short']['dayWeek'] = Timetable::model()->getNameDayWeek($i, false);

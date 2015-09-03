@@ -30,7 +30,7 @@
             $model->name,
             [
                 'class' => 'preview-image',
-                'style' => !$model->isNewRecord && $model->image ? '' : 'display:none'
+                'style' => !$model->isNewRecord && $model->image ? 'max-width: 100%;' : 'display:none; max-width: 100%;'
             ]
         ); ?>
 
@@ -54,6 +54,20 @@
                 ]
             ]
         ); ?>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12 <?php echo $model->hasErrors('description') ? 'has-error' : ''; ?>">
+        <?php echo $form->labelEx($model, 'description'); ?>
+        <?php $this->widget(
+            $this->module->getVisualEditor(),
+            [
+                'model'     => $model,
+                'attribute' => 'description',
+            ]
+        ); ?>
+        <?php echo $form->error($model, 'description'); ?>
     </div>
 </div>
 

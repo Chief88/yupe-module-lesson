@@ -73,6 +73,12 @@ $this->menu = [
             'value'       => 'CHtml::link($data->id, ["/lesson/lessonBackend/update", "id" => $data->id])'
         ],
         [
+            'name'   => 'image',
+            'type'   => 'raw',
+            'value'  => '$data->image ? CHtml::image($data->getImageUrl(0, 50), $data->name, array("max-width"  => "200px", "max-height" => "100%")) : "---"',
+            'filter' => false
+        ],
+        [
             'class'    => 'bootstrap.widgets.TbEditableColumn',
             'name'     => 'name',
             'editable' => [

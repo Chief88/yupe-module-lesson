@@ -68,7 +68,7 @@ class TimetableLesson extends yupe\models\YModel{
         $criteria = new CDbCriteria();
         $criteria->with[] = 'date';
         $criteria->compare('t.id', $this->id);
-        $criteria->compare('date.date', $this->date_id, true);
+        $criteria->compare('t.date_id', $this->date_id);
         $criteria->compare('t.lesson_id', $this->lesson_id);
         $criteria->compare('t.staff_id', $this->staff_id);
         $criteria->compare('t.time_id', $this->time_id);
