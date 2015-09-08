@@ -101,6 +101,33 @@ class Timetable extends yupe\models\YModel{
         return CHtml::listData($this->model()->findAll(), 'id', 'date');
     }
 
+    public function getListDateWithDayWeek(){
+        $models = $this->model()->findAll();
+
+        $list = [];
+        foreach($models as $model){
+            $numberDayWeek = date('w', strtotime($model->date));
+
+            $list[$model->id] =  '(' . $this->getDayWeekByDayNumber($numberDayWeek) . ') ' . $model->date;
+        }
+
+        return $list;
+    }
+
+    public function getDayWeekByDayNumber($dayNumber){
+        $dayNames = [
+            0 => 'Вс',
+            1 => 'Пн',
+            2 => 'Вт',
+            3 => 'Ср',
+            4 => 'Чт',
+            5 => 'Пт',
+            6 => 'Сб',
+        ];
+
+        return isset($dayNames[$dayNumber]) ? $dayNames[$dayNumber] : '---';
+    }
+
     public function getListMonth(){
         return [
             1   => Yii::t($this->_aliasModule, 'January'),

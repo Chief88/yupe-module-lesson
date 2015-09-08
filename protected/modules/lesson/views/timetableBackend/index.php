@@ -79,7 +79,7 @@ $this->menu = [
             'name'   => 'date_id',
             'value'  => '$data->getLessonDate()',
             'filter' => CHtml::activeDropDownList($model, 'date_id',
-                Timetable::model()->getListDate(),
+                Timetable::model()->getListDateWithDayWeek(),
                 ['class' => 'form-control', 'encode' => false, 'empty' => '']
             )
         ],

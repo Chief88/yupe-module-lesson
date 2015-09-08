@@ -91,6 +91,17 @@ class Lesson extends yupe\models\YModel{
         return parent::beforeValidate();
     }
 
+    public function beforeDelete(){
+
+        $lessonsInTimetable = TimetableLesson::model()->findAllByAttributes(['lesson_id' => $this->id]);
+
+        foreach ($lessonsInTimetable as $lesson) {
+            $lesson->delete();
+        }
+
+        return parent::beforeDelete();
+    }
+
     /**
      * @return array relational rules.
      */

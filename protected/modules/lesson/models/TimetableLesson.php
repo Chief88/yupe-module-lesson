@@ -88,7 +88,22 @@ class TimetableLesson extends yupe\models\YModel{
     }
 
     public function getLessonDate(){
-        return empty($this->date) ? '---' : $this->date->date;
+        $numberDayWeek = date('w', strtotime($this->date->date));
+        return empty($this->date) ? '---' : '(' . $this->getDayWeekByDayNumber($numberDayWeek) . ') ' . $this->date->date;
+    }
+
+    public function getDayWeekByDayNumber($dayNumber){
+        $dayNames = [
+            0 => 'Вс',
+            1 => 'Пн',
+            2 => 'Вт',
+            3 => 'Ср',
+            4 => 'Чт',
+            5 => 'Пт',
+            6 => 'Сб',
+        ];
+
+        return isset($dayNames[$dayNumber]) ? $dayNames[$dayNumber] : '---';
     }
 
     public function getTeacherFio(){

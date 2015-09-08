@@ -24,7 +24,7 @@ class TimetableBackendController extends yupe\components\controllers\BackControl
         return [
             ['allow', 'roles' => ['admin']],
             ['allow', 'actions' => ['create'], 'roles' => ['lesson.timetableBackend.Create']],
-            ['allow', 'actions' => ['delete'], 'roles' => ['lesson.timetableBackend.Delete']],
+            ['allow', 'actions' => ['delete', 'deleteLesson'], 'roles' => ['lesson.timetableBackend.Delete']],
             ['allow', 'actions' => ['index'], 'roles' => ['lesson.timetableBackend.Index']],
             ['allow', 'actions' => ['update', 'inline', 'sortable'], 'roles' => ['lesson.timetableBackend.Update']],
             ['deny']
